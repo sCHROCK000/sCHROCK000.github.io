@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Schrock000&#39;s Blog</title>
+    <title>RK3399内核编译以安装docker · Schrock000&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Schrock000&#39;s Blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">RK3399内核编译以安装docker</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Schrock000's Blog.</a>
 </header>
@@ -220,24 +231,68 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            RK3399内核编译以安装docker
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">636</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/10/16</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,111 +393,64 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/10/16/RK3399内核编译以安装docker/" >
-            
-                <span>RK3399内核编译以安装docker</span>
-        </a>
-        <div class="abstract-content">
-            环境：1、firefly-rk3399开发板2、ubuntu18.04 官方镜像3、内核版本 4.4.154  
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>环境：<br>1、firefly-rk3399开发板<br>2、ubuntu18.04 官方镜像<br>3、内核版本 4.4.154  </p>
+<hr>
+<p>最近想使用Docker的某容器，在RK3399-firefly上安装的时候报错，具体安装过程就网上随意能搜到的，就不提及了。经过查看各种资料之后，成功安装docker，希望能帮到有需要的各位，也顺便记录一下。大致过程如下：</p>
+<p>1、 查看docker的状态发现是failed，journalctl -fu docker 查看日志，有driver not support等字样，具体记不清了，这里大致了解了一下是因为docker有那么几种支持的storage-driver， 恰好内核又没打开任何一个支持的FS，所以只好去编译内核了。</p>
+<p>2、修改配置<br>进入linux-sdk/kernel目录下，获取<a href="https://raw.githubusercontent.com/docker/docker/master/contrib/check-config.sh脚本查看docker需要的设置是否打开，其他的都是enable，我仅放出storage-driver的配置，主要是要打开overlay的FS" target="_blank" rel="noopener">https://raw.githubusercontent.com/docker/docker/master/contrib/check-config.sh脚本查看docker需要的设置是否打开，其他的都是enable，我仅放出storage-driver的配置，主要是要打开overlay的FS</a>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- Storage Drivers:</span><br><span class="line">  - &quot;aufs&quot;:</span><br><span class="line">    - CONFIG_AUFS_FS: missing</span><br><span class="line">  - &quot;btrfs&quot;:</span><br><span class="line">    - CONFIG_BTRFS_FS: missing</span><br><span class="line">    - CONFIG_BTRFS_FS_POSIX_ACL: missing</span><br><span class="line">  - &quot;devicemapper&quot;:</span><br><span class="line">    - CONFIG_BLK_DEV_DM: enabled</span><br><span class="line">    - CONFIG_DM_THIN_PROVISIONING: enabled</span><br><span class="line">  - &quot;overlay&quot;:</span><br><span class="line">    - CONFIG_OVERLAY_FS: enabled</span><br><span class="line">  - &quot;zfs&quot;:</span><br><span class="line">    - /dev/zfs: missing</span><br><span class="line">    - zfs command: missing</span><br><span class="line">    - zpool command: missing</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>3、<br>之前的配置都是通过make menuconfig配置的，具体怎么操作网上找，挺多的。<br>进入linux-sdk/kernel/目录，make ARCH=arm64 rk3399-firefly-linux.img -j8 编译生成boot.img后烧录到开发板。<br>上电发现docker仍报错，修改配置文件内容（没有就新建），/etc/docker/daemon.json， 内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;],</span><br><span class="line">    &quot;storage-driver&quot;: &quot;overlay&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>上面的阿里云加速地址换成自己的，这里主要是为了pull容器的时候舒服一点，教程可以在网上搜到很多，保存。<br>重启服务：systemctl daemon-reload &amp;&amp; systemctl restart docker<br>还是无法正常运行，继续查看日志，发现报错已经变更了，这时候提示的是iptables does not exist 等字样的信息，其实就是说iptables内核模块没有，配置完编译新内核上传。加入以下模块，基本都在networking support-&gt;networking options中，我也记不太清了，各位自己查找一下吧。。。。</p>
+<hr>
+<p>Netfilter connection tracking support<br>Netbios name service protocal support(new)<br>Netfilter Xtables support (required for ip_tables)</p>
+<p>IP: Netfilter Configuration<br>IPv4 connection tracking support (require for NAT)<br>IP tables support (required for filtering/masq/NAT)</p>
+<p>什么 NAT的选项，忘了<br>MASQUERADE target support<br>REDIRECT target support</p>
+<p>按上面步骤重新编译并烧录到开发板，这次上电，docker绿了，开心。<br>操作了一下，正常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run ubuntu:18.04 /bin/echo &quot;Hello world&quot;</span><br><span class="line"></span><br><span class="line">Status: Downloaded newer image for ubuntu:18.04  </span><br><span class="line">Hello world</span><br></pre></td></tr></table></figure></p>
+<hr>
 
-最近想使用Docker的某容器，在RK3399-firefly上安装的时候报错，具体安装过程就网上随意能搜到的，就不提及了。经过查看各种资料之后，成功安装docker，希望能帮到有需要的各位，也顺便记录一下。大致过程如下：
-1、 查看docker的状态发现是failed，journalctl -fu docker 查看日志，有driver not support等字样，具体记不清了，这里大致了解了一下是因为docker有那么几种支持的storage-driver， 恰好内核...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/16</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/10/14/ARM内部处理寄存器/" >
-            
-                <span>ARM处理器内部寄存器</span>
-        </a>
-        <div class="abstract-content">
-            ARM处理器内部寄存器作用
-
-r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 to r3)v1-v8 (variable registers, r4 to r11)sb and SB (static base, r9)ip and IP (intra-procedure-call scratch register, r12)sp and SP (stack pointer, r13)lr and LR (link register, r14)pc and PC (program...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/14</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/02/01/Use-GCC-to-build-STM32-projects/" >
-            
-                <span>Use GCC to build STM32 projects</span>
-        </a>
-        <div class="abstract-content">
-            最近突然想建立一个利用makefile编译的STM32工程模板，记录一下辛酸的过程。。。
-   其实Makefile虽然我不是很熟，但是写一个简单的makefile还是OK的，所以在makefile阶段并没有遇到什么奇怪的问题，注意好makefile的规则就排除了，比如有时候没注意看TAB之类的，然后就是文件的路径。
-   在make的过程中出现以下报错信息。   12345/tmp/cc6kleCZ.s: Assembler messages:/tmp/cc6kleCZ.s:488: Error: registers may not be the same -- `strexb r0,...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/01/01/Hello-World/" >
-            
-                <span>Hello World</span>
-        </a>
-        <div class="abstract-content">
-            Hello World1$ Hello World
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
+        
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/08/11/TM32H743移植IAR及使用DAPLINK调试配置/" title= "STM32H743移植IAR及使用DAPLINK调试配置">
+                    <div class="nextTitle">STM32H743移植IAR及使用DAPLINK调试配置</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/10/14/ARM内部处理寄存器/" title= "ARM处理器内部寄存器">
+                    <div class="prevTitle">ARM处理器内部寄存器</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
+
             <!-- profile -->
             
         </div>
@@ -511,6 +519,24 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -700,6 +726,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>
     
 	
 		<script type="text/javascript" src="/scripts/canvas-nest.js"></script>
