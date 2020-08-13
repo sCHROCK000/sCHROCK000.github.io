@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Schrock000&#39;s Blog</title>
+    <title>使用OpenOCD+DAPLINK时调试报错 · Schrock000&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Schrock000&#39;s Blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">使用OpenOCD+DAPLINK时调试报错</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Schrock000's Blog.</a>
 </header>
@@ -220,24 +231,78 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            使用OpenOCD+DAPLINK时调试报错
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "STM32">STM32</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "DAPLINK">DAPLINK</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "OpenOCD">OpenOCD</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">452</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/08/14</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,83 +403,52 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/08/14/用OpenOCD-DAPLINK时调试报错/" >
-            
-                <span>使用OpenOCD+DAPLINK时调试报错</span>
-        </a>
-        <div class="abstract-content">
-            环境：1、VS2017+VisualGDB2、OpenOCD+DAPLINK3、正点原子STM32H743开发板
-使用OpenOCD+DAPLINK调试STM32H743IITx时出现如下报错：123456789101112131415Info : auto-selecting first available session transport &quot;swd&quot;. To override use &apos;transport select &lt;transport&gt;&apos;.Info : CMSIS-DAP: SWD  SupportedInfo : CMSI...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/08/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "STM32">STM32</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "DAPLINK">DAPLINK</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "OpenOCD">OpenOCD</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>环境：<br>1、VS2017+VisualGDB<br>2、OpenOCD+DAPLINK<br>3、正点原子STM32H743开发板</p>
+<p>使用OpenOCD+DAPLINK调试STM32H743IITx时出现如下报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Info : auto-selecting first available session transport &quot;swd&quot;. To override use &apos;transport select &lt;transport&gt;&apos;.</span><br><span class="line">Info : CMSIS-DAP: SWD  Supported</span><br><span class="line">Info : CMSIS-DAP: FW Version = 0254</span><br><span class="line">Info : CMSIS-DAP: Serial# = 070000010669ff545648786687215624a5a5a5a597969908</span><br><span class="line">Info : CMSIS-DAP: Interface Initialised (SWD)</span><br><span class="line">Info : SWCLK/TCK = 1 SWDIO/TMS = 1 TDI = 0 TDO = 0 nTRST = 0 nRESET = 1</span><br><span class="line">Info : CMSIS-DAP: Interface ready</span><br><span class="line">Info : clock speed 1800 kHz</span><br><span class="line">Info : SWD DPIDR 0x6ba02477</span><br><span class="line">Info : stm32h7x.cpu0: hardware has 8 breakpoints, 4 watchpoints</span><br><span class="line">Info : Listening on port 3333 for gdb connections</span><br><span class="line">Info : AP write error, reset will not halt</span><br><span class="line">Info : SWD DPIDR 0x6ba02477</span><br><span class="line">Error: timed out while waiting for target halted</span><br><span class="line">TARGET: stm32h7x.cpu0 - Not halted</span><br></pre></td></tr></table></figure></p>
+<p>解决方法：    </p>
+<p>本人是在VisualGDB中使用的OpenOCD+DAPLINK进行调试，使用的配置文件为”target/stm32h7x.cfg”，所以修改文件及路径如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\用户名\AppData\Local\VisualGDB\EmbeddedDebugPackages\com.sysprogs.arm.openocd\share\openocd\scripts\target\stm32h7x.cfg</span><br></pre></td></tr></table></figure></p>
+<p>用编辑器搜索reset发现126行左右，有如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># It is possible to access the DBGMCU component at 0xE00E1000 via AP2 instead</span><br><span class="line"># of the default AP0, and that works with SRST asserted; however, nonzero AP</span><br><span class="line"># usage does not work with HLA, so is not done by default. That change could be</span><br><span class="line"># made in a local configuration file if connect_assert_srst mode is needed for</span><br><span class="line"># a specific application and a non-HLA adapter is in use.</span><br><span class="line">reset_config srst_only srst_nogate</span><br><span class="line"></span><br><span class="line">if &#123;![using_hla]&#125; &#123;</span><br><span class="line">   # if srst is not fitted use SYSRESETREQ to</span><br><span class="line">   # perform a soft reset</span><br><span class="line">	$_CHIPNAME.cpu0 cortex_m reset_config sysresetreq</span><br><span class="line"></span><br><span class="line">	if &#123;[set $_CHIPNAME.DUAL_CORE]&#125; &#123;</span><br><span class="line">		$_CHIPNAME.cpu1 cortex_m reset_config sysresetreq</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将reset_config srst_only srst_nogate一行注释，并且添加$_CHIPNAME.cpu0 cortex_m reset_config sysresetreq修改为sysresetreq复位方式即可，修改完该段如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># It is possible to access the DBGMCU component at 0xE00E1000 via AP2 instead</span><br><span class="line"># of the default AP0, and that works with SRST asserted; however, nonzero AP</span><br><span class="line"># usage does not work with HLA, so is not done by default. That change could be</span><br><span class="line"># made in a local configuration file if connect_assert_srst mode is needed for</span><br><span class="line"># a specific application and a non-HLA adapter is in use.</span><br><span class="line"></span><br><span class="line">#reset_config srst_only srst_nogate</span><br><span class="line">$_CHIPNAME.cpu0 cortex_m reset_config sysresetreq</span><br><span class="line"></span><br><span class="line">if &#123;![using_hla]&#125; &#123;</span><br><span class="line">   # if srst is not fitted use SYSRESETREQ to</span><br><span class="line">   # perform a soft reset</span><br><span class="line">	$_CHIPNAME.cpu0 cortex_m reset_config sysresetreq</span><br><span class="line"></span><br><span class="line">	if &#123;[set $_CHIPNAME.DUAL_CORE]&#125; &#123;</span><br><span class="line">		$_CHIPNAME.cpu1 cortex_m reset_config sysresetreq</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>问题解决了    </p>
+<hr>
+<div align="middle"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=1478636&auto=1&height=32"></iframe></div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/08/11/TM32H743移植IAR及使用DAPLINK调试配置/" >
-            
-                <span>STM32H743移植到IAR及使用DAPLINK调试配置</span>
-        </a>
-        <div class="abstract-content">
-            环境：1、正点原子APOLLO STM32H743开发板2、IAR for ARM 8.323、DAPLINK仿真器4、HAL库版本 STM32Cube_FW_H7_V1.6.0
-
-本人平时用IAR不多，最近觉得它挺香的，于是打算准备一些基于IAR的stm32的模板。然后手头有DAPLINK，就决定是它作为debugger了，方便的功能香得鼻子都流血。由MDK移植到IAR的过程遇到一些问题，在这里记录一下大致的过程。    
-建立工程以及复制文件就不一一说明了，主要分两部分说几个地方：    
-
-1、文件不能全部由MDK的工程中拷贝过来，有些文件需要去官方HAL库的固件包中复制IAR环境...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/08/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "STM32">STM32</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "IAR">IAR</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "DAPLINK">DAPLINK</a>
-    
-</div>
-            
-        </div>
-    </article>
+        
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/08/11/TM32H743移植IAR及使用DAPLINK调试配置/" title= "STM32H743移植到IAR及使用DAPLINK调试配置">
+                    <div class="prevTitle">STM32H743移植到IAR及使用DAPLINK调试配置</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
+
             <!-- profile -->
             
         </div>
@@ -483,6 +517,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -698,6 +750,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>
     
 	
 		<script type="text/javascript" src="/scripts/canvas-nest.js"></script>
