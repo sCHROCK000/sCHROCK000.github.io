@@ -268,15 +268,15 @@ height:50vh;
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "STM32">STM32</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "IAR">IAR</a>
-    
         <a class="post-tag" href="javascript:void(0);" data-tags = "DAPLINK">DAPLINK</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "IAR">IAR</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.5k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -414,7 +414,7 @@ height:50vh;
 <p>我为了以后方便其他型号的MCU使用，把上述目录的相关文件都拷贝了，如果不需要，可以只拷贝需要的型号。<br>MDK和IAR都需要.s文件，只不过两者适用对象不同，所以要拷贝适用于当前环境的。然后特地需要拷贝的linker文件夹中，有若干个.icf文件，这个其实就是MDK环境下的.sct文件（链接器控制文件，也叫分散加载文件），主要描述MCU的FLASH以及RAM情况，外部的SRAM/SDRAM也可以在里面进行概述。    </p>
 <p>我在工程根目录下建立了startup文件夹用于存放这些文件，因为后面会修改并使用stm32h743xx_flash.icf这个文件，我将其从linker文件夹拷贝到了startup目录中。修改的目的是为了适配开发板，以及内存管理的文件，修改如下：    </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">define memory mem with size = 4G;</span><br><span class="line">define region ROM_region      = mem:[from __ICFEDIT_region_ROM_start__   to __ICFEDIT_region_ROM_end__];</span><br><span class="line">define region RAM_region      = mem:[from __ICFEDIT_region_RAM_start__   to __ICFEDIT_region_RAM_end__];</span><br><span class="line">define region ITCMRAM_region  = mem:[from __ICFEDIT_region_ITCMRAM_start__ to __ICFEDIT_region_ITCMRAM_end__];</span><br><span class="line">在下方添加</span><br><span class="line">define region AXI_RAM_region	= mem:[from 0x24000000 to 0x2407FFFF];</span><br><span class="line">define region SRAM12_region	= mem:[from 0x30000000 to 0x3003FFFF];</span><br><span class="line">define region SRAM3_region	= mem:[from 0x30040000 to 0x30047FFF];</span><br><span class="line">define region SRAM4_region	= mem:[from 0x38000000 to 0x3800FFFF];</span><br><span class="line">define region EXTRAM_region	= mem:[from 0xC0000000 to 0xC1FFFFFF];</span><br><span class="line"></span><br><span class="line">place in AXI_RAM_region &#123;section .AXI_RAM&#125;;</span><br><span class="line">place in SRAM12_region 	&#123;section .SRAM12&#125;;</span><br><span class="line">place in SRAM3_region   &#123;section .SRAM3&#125;;</span><br><span class="line">place in SRAM4_region   &#123;section .SRAM4&#125;;</span><br><span class="line">place in EXTRAM_region  &#123;section .EXTRAM&#125;;</span><br></pre></td></tr></table></figure>
-<p>在正点原子的例程中，原子哥有一个malloc.c文件，用于内存管理，我们也将其移植过来。修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#if defined(__CC_ARM) || defined(__GNUC__)  //GCC 与 MDK</span><br><span class="line">//内存池(64字节对齐)</span><br><span class="line">__align(64) u8 mem1base[MEM1_MAX_SIZE];													//内部SRAM内存池</span><br><span class="line">__align(64) u8 mem2base[MEM2_MAX_SIZE] __attribute__((at(0XC01F4000)));					//外部SDRAM内存池,前面2M给LTDC用了(1280*800*2)</span><br><span class="line">__align(64) u8 mem3base[MEM3_MAX_SIZE] __attribute__((at(0x30000000)));					//内部SRAM1+SRAM2内存池</span><br><span class="line">__align(64) u8 mem4base[MEM4_MAX_SIZE] __attribute__((at(0x38000000)));					//内部SRAM4内存池</span><br><span class="line"></span><br><span class="line">//内存管理表</span><br><span class="line">u32 mem1mapbase[MEM1_ALLOC_TABLE_SIZE];													//内部SRAM内存池MAP</span><br><span class="line">u32 mem2mapbase[MEM2_ALLOC_TABLE_SIZE] __attribute__((at(0XC01F4000+MEM2_MAX_SIZE)));	//外部SDRAM内存池MAP</span><br><span class="line">u32 mem3mapbase[MEM3_ALLOC_TABLE_SIZE] __attribute__((at(0x30000000+MEM3_MAX_SIZE)));	//内部SRAM1+SRAM2内存池MAP</span><br><span class="line">u32 mem4mapbase[MEM4_ALLOC_TABLE_SIZE] __attribute__((at(0x38000000+MEM4_MAX_SIZE)));	//内部SRAM4内存池MAP</span><br><span class="line"></span><br><span class="line">#elif defined(__ICCARM__)</span><br><span class="line"></span><br><span class="line">#pragma pack(64) //64字节对齐</span><br><span class="line">#pragma location=&quot;.AXI_RAM&quot;</span><br><span class="line">__no_init u8 mem1base[MEM1_MAX_SIZE];</span><br><span class="line"></span><br><span class="line">#pragma location=0xC01F4000</span><br><span class="line">__no_init u8 mem2base[MEM2_MAX_SIZE];</span><br><span class="line"></span><br><span class="line">#pragma location=&quot;.SRAM12&quot;</span><br><span class="line">__no_init u8 mem3base[MEM3_MAX_SIZE];</span><br><span class="line"></span><br><span class="line">#pragma location=&quot;.SRAM4&quot;</span><br><span class="line">__no_init u8 mem4base[MEM4_MAX_SIZE];</span><br><span class="line"></span><br><span class="line">#pragma pack()</span><br><span class="line"></span><br><span class="line">#pragma location=(0x24000000+MEM1_MAX_SIZE)</span><br><span class="line">__no_init u32 mem1mapbase[MEM1_ALLOC_TABLE_SIZE];	</span><br><span class="line"></span><br><span class="line">#pragma location=(0xC01F4000+MEM2_MAX_SIZE)</span><br><span class="line">__no_init u32 mem2mapbase[MEM2_ALLOC_TABLE_SIZE];	</span><br><span class="line"></span><br><span class="line">#pragma location=(0x30000000+MEM3_MAX_SIZE)</span><br><span class="line">__no_init u32 mem3mapbase[MEM3_ALLOC_TABLE_SIZE];	</span><br><span class="line"></span><br><span class="line">#pragma location=(0x38000000+MEM4_MAX_SIZE)</span><br><span class="line">__no_init u32 mem4mapbase[MEM4_ALLOC_TABLE_SIZE];</span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
+<p>在正点原子的例程中，原子哥有一个malloc.c文件，用于内存管理，我们也将其移植过来。修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#if defined(__CC_ARM) //MDK</span><br><span class="line">//内存池(64字节对齐)</span><br><span class="line">__align(64) u8 mem1base[MEM1_MAX_SIZE];													//内部SRAM内存池</span><br><span class="line">__align(64) u8 mem2base[MEM2_MAX_SIZE] __attribute__((at(0XC01F4000)));					//外部SDRAM内存池,前面2M给LTDC用了(1280*800*2)</span><br><span class="line">__align(64) u8 mem3base[MEM3_MAX_SIZE] __attribute__((at(0x30000000)));					//内部SRAM1+SRAM2内存池</span><br><span class="line">__align(64) u8 mem4base[MEM4_MAX_SIZE] __attribute__((at(0x38000000)));					//内部SRAM4内存池</span><br><span class="line">//__align(64) u8 mem5base[MEM5_MAX_SIZE] __attribute__((at(0x20000000)));					//内部DTCM内存池</span><br><span class="line">//__align(64) u8 mem6base[MEM6_MAX_SIZE] __attribute__((at(0x00000000)));					//内部ITCM内存池 </span><br><span class="line">//内存管理表</span><br><span class="line">u32 mem1mapbase[MEM1_ALLOC_TABLE_SIZE];													//内部SRAM内存池MAP</span><br><span class="line">u32 mem2mapbase[MEM2_ALLOC_TABLE_SIZE] __attribute__((at(0XC01F4000+MEM2_MAX_SIZE)));	//外部SDRAM内存池MAP</span><br><span class="line">u32 mem3mapbase[MEM3_ALLOC_TABLE_SIZE] __attribute__((at(0x30000000+MEM3_MAX_SIZE)));	//内部SRAM1+SRAM2内存池MAP</span><br><span class="line">u32 mem4mapbase[MEM4_ALLOC_TABLE_SIZE] __attribute__((at(0x38000000+MEM4_MAX_SIZE)));	//内部SRAM4内存池MAP</span><br><span class="line">//u32 mem5mapbase[MEM5_ALLOC_TABLE_SIZE] __attribute__((at(0x20000000+MEM5_MAX_SIZE)));	//内部DTCM内存池MAP</span><br><span class="line">//u32 mem6mapbase[MEM6_ALLOC_TABLE_SIZE] __attribute__((at(0x00000000+MEM6_MAX_SIZE)));	//内部ITCM内存池MAP </span><br><span class="line">#elif defined(__GNUC__) //GCC</span><br><span class="line">//内存池(64字节对齐)</span><br><span class="line">__attribute__((aligned(64))) u8 mem1base[MEM1_MAX_SIZE] __attribute__((section(&quot;.RAM_D1&quot;)));													//内部SRAM内存池</span><br><span class="line">__attribute__((aligned(64))) u8 mem2base[MEM2_MAX_SIZE] __attribute__((section(&quot;.EXTRAM&quot;)));					//外部SDRAM内存池,前面2M给LTDC用了(1280*800*2)</span><br><span class="line">__attribute__((aligned(64))) u8 mem3base[MEM3_MAX_SIZE] __attribute__((section(&quot;.RAM_D2&quot;)));					//内部SRAM1+SRAM2内存池</span><br><span class="line">__attribute__((aligned(64))) u8 mem4base[MEM4_MAX_SIZE] __attribute__((section(&quot;.RAM_D3&quot;)));					//内部SRAM4内存池</span><br><span class="line"></span><br><span class="line">//内存管理表</span><br><span class="line">u32 mem1mapbase[MEM1_ALLOC_TABLE_SIZE] __attribute__((section(&quot;.RAM_D1_TABLE&quot;)));													//内部SRAM内存池MAP</span><br><span class="line">u32 mem2mapbase[MEM2_ALLOC_TABLE_SIZE] __attribute__((section(&quot;.EXTRAM_TABLE&quot;)));	//外部SDRAM内存池MAP</span><br><span class="line">u32 mem3mapbase[MEM3_ALLOC_TABLE_SIZE] __attribute__((section(&quot;.RAM_D2_TABLE&quot;)));	//内部SRAM1+SRAM2内存池MAP</span><br><span class="line">u32 mem4mapbase[MEM4_ALLOC_TABLE_SIZE] __attribute__((section(&quot;.RAM_D3_TABLE&quot;)));	//内部SRAM4内存池MAP</span><br><span class="line"></span><br><span class="line">#elif defined(__ICCARM__) //IAR</span><br><span class="line"></span><br><span class="line">#pragma pack(64)</span><br><span class="line">#pragma location=&quot;.AXI_RAM&quot;</span><br><span class="line">__no_init u8 mem1base[MEM1_MAX_SIZE];</span><br><span class="line"></span><br><span class="line">#pragma location=0xC01F4000</span><br><span class="line">__no_init u8 mem2base[MEM2_MAX_SIZE];</span><br><span class="line"></span><br><span class="line">#pragma location=&quot;.SRAM12&quot;</span><br><span class="line">__no_init u8 mem3base[MEM3_MAX_SIZE];</span><br><span class="line"></span><br><span class="line">#pragma location=&quot;.SRAM4&quot;</span><br><span class="line">__no_init u8 mem4base[MEM4_MAX_SIZE];</span><br><span class="line"></span><br><span class="line">#pragma pack()</span><br><span class="line"></span><br><span class="line">#pragma location=(0x24000000+MEM1_MAX_SIZE)</span><br><span class="line">__no_init u32 mem1mapbase[MEM1_ALLOC_TABLE_SIZE];	</span><br><span class="line"></span><br><span class="line">#pragma location=(0xC01F4000+MEM2_MAX_SIZE)</span><br><span class="line">__no_init u32 mem2mapbase[MEM2_ALLOC_TABLE_SIZE];	</span><br><span class="line"></span><br><span class="line">#pragma location=(0x30000000+MEM3_MAX_SIZE)</span><br><span class="line">__no_init u32 mem3mapbase[MEM3_ALLOC_TABLE_SIZE];	</span><br><span class="line"></span><br><span class="line">#pragma location=(0x38000000+MEM4_MAX_SIZE)</span><br><span class="line">__no_init u32 mem4mapbase[MEM4_ALLOC_TABLE_SIZE];</span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
 <p>其中的 #pragma pack(64)以及#pragma location网上有详细功能描述及用法介绍，这里不再赘述了。并且其中的__no_init必须添加，否则无法正常使用，在调用my_mem_init()初始化内存池时会失败。    </p>
 <p>我添加了DSP库，在IAR中预处理宏定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">STM32H743xx</span><br><span class="line">USE_HAL_DRIVER</span><br><span class="line">__ICCARM__</span><br><span class="line">ARM_MATH_CM7</span><br><span class="line">ARM_MATH_MATRIX_CHECK</span><br><span class="line">ARM_MATH_ROUNDING</span><br></pre></td></tr></table></figure></p>
 <p>剩下就是一些日常遇到的error和warning了，我就不说了。    </p>
@@ -629,9 +629,26 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -644,6 +661,11 @@ top:50vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2020/08/16/M32使用GCC编译器内存管理-lds文件处理/" >STM32使用GCC编译器内存管理.lds文件处理</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -691,11 +713,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="STM32"><span class="iconfont-archer">&#xe606;</span>STM32</span>
     
-        <span class="sidebar-tag-name" data-tags="IAR"><span class="iconfont-archer">&#xe606;</span>IAR</span>
-    
         <span class="sidebar-tag-name" data-tags="DAPLINK"><span class="iconfont-archer">&#xe606;</span>DAPLINK</span>
     
         <span class="sidebar-tag-name" data-tags="OpenOCD"><span class="iconfont-archer">&#xe606;</span>OpenOCD</span>
+    
+        <span class="sidebar-tag-name" data-tags="IAR"><span class="iconfont-archer">&#xe606;</span>IAR</span>
+    
+        <span class="sidebar-tag-name" data-tags="内存管理"><span class="iconfont-archer">&#xe606;</span>内存管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="STM32内存管理"><span class="iconfont-archer">&#xe606;</span>STM32内存管理</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
