@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>ARM处理器内部寄存器 · Schrock000&#39;s Blog</title>
+    <title>Windows下PIP换源 · Schrock000&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Schrock000&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">ARM处理器内部寄存器</a>
+                <a href="#" class="post-name">Windows下PIP换源</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            ARM处理器内部寄存器
+            Windows下PIP换源
             <!-- 404 -->
             
         </h1>
@@ -264,14 +264,20 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "pip python">pip python</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">413</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">121</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/10/14</span>
+                    <span class="post-intro-time">2021/06/12</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,21 +401,13 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="ARM处理器内部寄存器作用"><a href="#ARM处理器内部寄存器作用" class="headerlink" title="ARM处理器内部寄存器作用"></a>ARM处理器内部寄存器作用</h1><p><img src="/images/arm1.png" alt=""></p>
+        <h3 id="windows下pip换aliyun源"><a href="#windows下pip换aliyun源" class="headerlink" title="windows下pip换aliyun源"></a>windows下pip换aliyun源</h3><p>####最近用pip，已经换了清华的源，不知道为什么还是感觉很慢，还经常报超时错错误，所以决定换个其他的源，在此记录一下。</p>
 <hr>
-<p>r0-r15 and R0-R15<br>a1-a4 (argument, result, or scratch registers, synonyms for r0 to r3)<br>v1-v8 (variable registers, r4 to r11)<br>sb and SB (static base, r9)<br>ip and IP (intra-procedure-call scratch register, r12)<br>sp and SP (stack pointer, r13)<br>lr and LR (link register, r14)<br>pc and PC (program counter, r15)</p>
+<p>在资源管理器地址栏输入%appdata%回车，找到pip文件夹，修改pip.ini内容为如下并保存，下次使用pip就会用aliyun的源了，感觉速度快乐起来了。</p>
 <hr>
-<ol>
-<li>r0-r3用作传入函数参数，传出函数返回值。在子程序调用之间，可以将 r0-r3 用于任何用途。被调用函数在返回之前不必恢复 r0-r3。如果调用函数需要再次使用 r0-r3 的内容，则它必须保留这些内容。  </li>
-<li>r4-r11被用来存放函数的局部变量。如果被调用函数使用了这些寄存器，它在返回之前必须恢复这些寄存器的值。  </li>
-<li>r12是内部调用暂时寄存器 ip。它在过程链接胶合代码（例如，交互操作胶合代码）中用于此角色。在过程调用之间，可以将它用于任何用途。被调用函数在返回之前不必恢复 r12。  </li>
-<li>r13是栈指针 sp。它不能用于任何其它用途。sp 中存放的值在退出被调用函数时必须与进入时的值相同。  </li>
-<li>r14是链接寄存器 lr。如果您保存了返回地址，则可以在调用之间将 r14 用于其它用途，程序返回时要恢复。  </li>
-<li>r15是程序计数器 PC。它不能用于任何其它用途。</li>
-</ol>
-<h6 id="注意：在中断程序中，所有的寄存器都必须保护，编译器会自动保护R4～R11"><a href="#注意：在中断程序中，所有的寄存器都必须保护，编译器会自动保护R4～R11" class="headerlink" title="注意：在中断程序中，所有的寄存器都必须保护，编译器会自动保护R4～R11"></a>注意：在中断程序中，所有的寄存器都必须保护，编译器会自动保护R4～R11</h6><p>原文出处：<br><a href="https://blog.csdn.net/wh8_2011/article/details/53195320" target="_blank" rel="noopener">https://blog.csdn.net/wh8_2011/article/details/53195320</a><br><a href="https://blog.csdn.net/Decisiveness/article/details/44106197" target="_blank" rel="noopener">https://blog.csdn.net/Decisiveness/article/details/44106197</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">timeout = 6000</span><br><span class="line">index-url = https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">trusted-host = mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
 <hr>
-<div align="middle"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=1767771&auto=1&height=32"></iframe></div>
+
     </article>
     <!-- license  -->
     
@@ -419,17 +417,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/10/16/RK3399内核编译以安装docker/" title= "RK3399内核编译以安装docker">
-                    <div class="nextTitle">RK3399内核编译以安装docker</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/02/01/Use-GCC-to-build-STM32-projects/" title= "Use GCC to build STM32 projects">
-                    <div class="prevTitle">Use GCC to build STM32 projects</div>
+                <a href= "/2020/08/16/M32使用GCC编译器内存管理-lds文件处理/" title= "STM32使用GCC编译器内存管理.lds文件处理">
+                    <div class="prevTitle">STM32使用GCC编译器内存管理.lds文件处理</div>
                 </a>
             
         </li>
@@ -534,7 +527,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ARM处理器内部寄存器作用"><span class="toc-number">1.</span> <span class="toc-text">ARM处理器内部寄存器作用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#注意：在中断程序中，所有的寄存器都必须保护，编译器会自动保护R4～R11"><span class="toc-number">1.0.0.0.0.1.</span> <span class="toc-text">注意：在中断程序中，所有的寄存器都必须保护，编译器会自动保护R4～R11</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#windows下pip换aliyun源"><span class="toc-number">1.</span> <span class="toc-text">windows下pip换aliyun源</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
