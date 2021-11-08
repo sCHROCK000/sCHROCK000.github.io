@@ -346,6 +346,36 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2021/11/09/MATLAB-SIZE-PRECISION-must-be-less-than-or-equal-to-InputBufferSize/" >
+            
+                <span>MATLAB 读取错误 SIZE * PRECISION must be less than or equal to InputBufferSize</span>
+        </a>
+        <div class="abstract-content">
+            matlab读取串口数据时，报错SIZE * PRECISION must be less than or equal to InputBufferSize。查找原因，大概是因为inputbuffersize大小默认只有512，将其修改为至少等于单次接收的最大buf的大小即可。我单次读取大小最大为4096字节，故做如下配置：
+12s = serial(&apos;COM54&apos;, &apos;BaudRate&apos;, 115200, &apos;DataBits&apos;, 8, &apos;StopBits&apos;, 1, &apos;Parity&apos;, &...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/09</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "matlab">matlab</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2021/10/27/MWare共享文件夹hgfs不正常问题/" >
             
                 <span>VMWare共享文件夹hgfs不正常问题</span>
@@ -802,9 +832,24 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 9
+        Total : 10
         </div>
         <!-- search  -->
         
@@ -817,6 +862,11 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/09</span><a class="archive-post-title" href= "/2021/11/09/MATLAB-SIZE-PRECISION-must-be-less-than-or-equal-to-InputBufferSize/" >MATLAB 读取错误 SIZE * PRECISION must be less than or equal to InputBufferSize</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -893,6 +943,8 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
         <span class="sidebar-tag-name" data-tags="VMWare"><span class="iconfont-archer">&#xe606;</span>VMWare</span>
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
     
         <span class="sidebar-tag-name" data-tags="pip python"><span class="iconfont-archer">&#xe606;</span>pip python</span>
     
