@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>VMWare共享文件夹hgfs不正常问题 · Schrock000&#39;s Blog</title>
+    <title>树莓派3B+/4B 更换国内源 · Schrock000&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Schrock000&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">VMWare共享文件夹hgfs不正常问题</a>
+                <a href="#" class="post-name">树莓派3B+/4B 更换国内源</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            VMWare共享文件夹hgfs不正常问题
+            树莓派3B+/4B 更换国内源
             <!-- 404 -->
             
         </h1>
@@ -266,20 +266,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "VMWare">VMWare</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "raspberry pi">raspberry pi</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">69</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">182</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2021/10/27</span>
+                    <span class="post-intro-time">2021/11/09</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -403,9 +401,12 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>想使用VMWare共享文件夹功能，按照网上的教程设置以及挂载后并不能正常使用，解决方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /mnt/hgfs</span><br><span class="line">sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other -o uid=1000 -o gid=1000 -o umask=022</span><br></pre></td></tr></table></figure>
-<p>uid/gid可使用命令id查看</p>
+        <p>最近用raspberry pi 3B+/4B，记录一下串口调试配置以及国内的源。</p>
+<h3 id="串口调试"><a href="#串口调试" class="headerlink" title="串口调试"></a>串口调试</h3><p>修改配置文件, 在/boot/config.txt最后加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dtoverlay=pi3-miniuart-bt</span><br></pre></td></tr></table></figure></p>
+<p>保存重启  </p>
+<h3 id="更换国内源"><a href="#更换国内源" class="headerlink" title="更换国内源"></a>更换国内源</h3><h6 id="备份文件"><a href="#备份文件" class="headerlink" title="备份文件"></a>备份文件</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line">sudo cp /etc/apt/sources.list.d/raspi.list /etc/apt/sources.list.d/raspi.list.bak</span><br></pre></td></tr></table></figure>
+<h6 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h6><p>先用#注释掉现有的源，再加入国内源。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib rpi</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib rpi</span><br><span class="line"></span><br><span class="line">sudo nano /etc/apt/sources.list.d/raspi.list</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui</span><br></pre></td></tr></table></figure></p>
+<p>保存并更新查看是否修改成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -416,17 +417,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2021/11/09/MATLAB-SIZE-PRECISION-must-be-less-than-or-equal-to-InputBufferSize/" title= "MATLAB 读取错误 SIZE * PRECISION must be less than or equal to InputBufferSize">
-                    <div class="nextTitle">MATLAB 读取错误 SIZE * PRECISION must be less than or equal to InputBufferSize</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2021/06/12/indows下PIP换源/" title= "Windows下PIP换源">
-                    <div class="prevTitle">Windows下PIP换源</div>
+                <a href= "/2021/11/09/MATLAB-SIZE-PRECISION-must-be-less-than-or-equal-to-InputBufferSize/" title= "MATLAB 读取错误 SIZE * PRECISION must be less than or equal to InputBufferSize">
+                    <div class="prevTitle">MATLAB 读取错误 SIZE * PRECISION must be less than or equal to InputBufferSize</div>
                 </a>
             
         </li>
@@ -531,7 +527,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#串口调试"><span class="toc-number">1.</span> <span class="toc-text">串口调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更换国内源"><span class="toc-number">2.</span> <span class="toc-text">更换国内源</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#备份文件"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">备份文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#添加源"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">添加源</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

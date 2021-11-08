@@ -346,6 +346,39 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2021/11/09/树莓派3B-4B-更换国内源/" >
+            
+                <span>树莓派3B+/4B 更换国内源</span>
+        </a>
+        <div class="abstract-content">
+            最近用raspberry pi 3B+/4B，记录一下串口调试配置以及国内的源。
+串口调试修改配置文件, 在/boot/config.txt最后加入1dtoverlay=pi3-miniuart-bt
+保存重启  
+更换国内源备份文件12sudo cp /etc/apt/sources.list /etc/apt/sources.list.baksudo cp /etc/apt/sources.list.d/raspi.list /etc/apt/sources.list.d/raspi.list.bak
+添加源先用#注释掉现有的源，再加入国内源。1234567sudo nano /et...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/11/09</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "raspberry pi">raspberry pi</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2021/11/09/MATLAB-SIZE-PRECISION-must-be-less-than-or-equal-to-InputBufferSize/" >
             
                 <span>MATLAB 读取错误 SIZE * PRECISION must be less than or equal to InputBufferSize</span>
@@ -621,31 +654,11 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/01/01/Hello-World/" >
-            
-                <span>Hello World</span>
-        </a>
-        <div class="abstract-content">
-            Hello World1$ Hello World
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">NEXT &#62;</a>
+    </nav>
     
 </main>
             <!-- profile -->
@@ -840,16 +853,9 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
     
     
     
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 10
+        Total : 11
         </div>
         <!-- search  -->
         
@@ -862,6 +868,11 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/09</span><a class="archive-post-title" href= "/2021/11/09/树莓派3B-4B-更换国内源/" >树莓派3B+/4B 更换国内源</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -936,6 +947,8 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
+    
         <span class="sidebar-tag-name" data-tags="STM32"><span class="iconfont-archer">&#xe606;</span>STM32</span>
     
         <span class="sidebar-tag-name" data-tags="STM32内存管理"><span class="iconfont-archer">&#xe606;</span>STM32内存管理</span>
@@ -944,9 +957,9 @@ r0-r15 and R0-R15a1-a4 (argument, result, or scratch registers, synonyms for r0 
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
-        <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
-    
         <span class="sidebar-tag-name" data-tags="pip python"><span class="iconfont-archer">&#xe606;</span>pip python</span>
+    
+        <span class="sidebar-tag-name" data-tags="raspberry pi"><span class="iconfont-archer">&#xe606;</span>raspberry pi</span>
     
         <span class="sidebar-tag-name" data-tags="DAPLINK"><span class="iconfont-archer">&#xe606;</span>DAPLINK</span>
     
@@ -989,11 +1002,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="STM32"><span class="iconfont-archer">&#xe60a;</span>STM32</span>
     
-        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
-    
         <span class="sidebar-category-name" data-categories="ARM-Linux"><span class="iconfont-archer">&#xe60a;</span>ARM-Linux</span>
     
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
         <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
+    
+        <span class="sidebar-category-name" data-categories="raspberry-pi"><span class="iconfont-archer">&#xe60a;</span>raspberry-pi</span>
     
         <span class="sidebar-category-name" data-categories="STM32/Debugger"><span class="iconfont-archer">&#xe60a;</span>STM32/Debugger</span>
     
